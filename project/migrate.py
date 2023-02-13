@@ -1,7 +1,10 @@
 import sqlite3
 
 conn=sqlite3.connect('tienda.db')
+
 cursor_obj = conn.cursor()
+
+# TABLA USUARIOS
 cursor_obj.execute("DROP TABLE IF EXISTS USUARIOS")
 table = """ CREATE TABLE USUARIOS (
             ID  INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -13,6 +16,8 @@ table = """ CREATE TABLE USUARIOS (
             TIPOUSUARIO VARCHAR(25)
         ); """
 cursor_obj.execute(table)
+
+# TABLA PRODUCTOS
 cursor_obj.execute("DROP TABLE IF EXISTS PRODUCTOS")
 table = """ CREATE TABLE PRODUCTOS (
             ID  INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,22 +29,33 @@ table = """ CREATE TABLE PRODUCTOS (
             UPDATE_PRODUCT TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ); """
 cursor_obj.execute(table)
-cursor_obj.execute("DROP TABLE IF EXISTS VENTA")
 
+# TABLA VENTA
+cursor_obj.execute("DROP TABLE IF EXISTS VENTA")
 table=""" CREATE TABLE VENTA (
             ORDERID  INTEGER PRIMARY KEY AUTOINCREMENT,
             PRODUCTID INT, 
             PRICETOTAL VARCHAR(25) NOT NULL
         ); """
-
 cursor_obj.execute(table)
-cursor_obj.execute("DROP TABLE IF EXISTS INVENTARIO")
 
+# TABLA INVENTARIO
+cursor_obj.execute("DROP TABLE IF EXISTS INVENTARIO")
 table=""" CREATE TABLE INVENTARIO (
             IDMOVIMIENTO  INTEGER PRIMARY KEY AUTOINCREMENT,
             PRODUCTID INT NOT NULL, 
             CANTIDAD INT NOT NULL,
             FECHA_MOVIMIENTO TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ); """
+cursor_obj.execute(table)
+
+# TABLA TASA_CAMBIO
+cursor_obj.execute("DROP TABLE IF EXISTS TASA_CAMBIO")
+table=""" CREATE TABLE TASA_CAMBIO (
+            ID_TASA_CAMBIO INTEGER PRIMARY KEY,
+            COMPRA INTEGER,
+            VENTA INTEGER,
+            FECHA TIMESTAMP DATE
         ); """
 cursor_obj.execute(table)
 
